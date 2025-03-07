@@ -6,8 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{route('showpage')}}">
-        <button type="Submit">Go to file manager</button>
-    </form>
+    <audio controls>
+        <source src="{{url($file_path)}}" type="audio/mpeg"> 
+    </audio>
 </body>
 </html>

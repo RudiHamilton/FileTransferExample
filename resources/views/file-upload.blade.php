@@ -37,13 +37,13 @@
         </div>
     </div>
     <div class="container">
-        <table>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>File ID</th>
-                    <th>File Name<th>
-                    <th>Download File</th>
-
+                    <th>File Name</th>
+                    <th>File Type</th>
+                    <th>Download/Delete File</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,16 +51,22 @@
                 <tr>
                     <td>{{$file->id}}</td>
                     <td>{{$file->name}}</td>
-                    <td>
-                        <form action="{{route('fileDownload',parameters: ['id' =>  $file->id])}}">
+                    <td>{{$file->file_type}}</td>
+                    <td class="inline-block">
+                        <form action="{{route('fileDownload',parameters: ['id' =>  $file->id])}}" method="GET" class="inline-block w-0 ">
                             @csrf
-                            <button class="btn btn-primary btn-block"  method="GET">Download</button>
+                            <button class="btn btn-primary btn-block mb-2" >Download</button>
                         </form>
-                        {{-- <form action="{{route('fileDelete',parameters: ['id' =>  $file->id])}}">
+                        <form action="{{route('deleteFile',parameters: ['id' =>  $file->id])}}" method="POST" class="inline-block w-0 ">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-primary btn-block"  method="POST">Download</button>
-                        </form> --}}
+                            <button class="btn btn-primary btn-block mb-2">Delete</button>
+                        </form>
+                        <form action="{{route('previewfiles',parameters: ['id' =>  $file->id])}}" method="POST" class="inline-block w-0 ">
+                            @csrf
+                            @method('GET')
+                            <button class="btn btn-primary btn-block mb-2">Preview</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
