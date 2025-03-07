@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>File Upload</title>
+</head>
+<body>
+    <div class="container">
+        <div class="mt-5">
+            <form action="{{route('fileUpload')}}" method="POST" enctype="multipart/form-data">
+                <h3 class="text-center mb-5">Uploading File</h3>
+                @csrf
+                @if ($message = Session::get('Success'))
+                    <div class="alert alert-success">
+                        <strong>{{$message}}</strong>
+                    </div>
+                @endif
+                @if (count($errors)>0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="custom-file"> 
+                    <input type="file" name="file" class="custom-file-input" id="chooseFile">
+                    <label for="chooseFile" class="custom-file-label">Select File</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-5">
+                    Upload Files
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>File ID</th>
+                    <th>File Name<th>
+                    <th>Download File</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($fileAll as $file)
+                <tr>
+                    <td>{{$file->id}}</td>
+                    <td>{{$file->name}}</td>
+                    <td>
+                        <form action="{{route('fileDownload',parameters: ['id' =>  $file->id])}}">
+                            @csrf
+                            <button class="btn btn-primary btn-block"  method="GET">Download</button>
+                        </form>
+                        {{-- <form action="{{route('fileDelete',parameters: ['id' =>  $file->id])}}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-primary btn-block"  method="POST">Download</button>
+                        </form> --}}
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
