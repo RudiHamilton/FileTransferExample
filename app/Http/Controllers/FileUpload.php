@@ -63,13 +63,13 @@ class FileUpload extends Controller
         if (!$file) {
             abort(404, 'File not found');
         }
-    
+        
         $file_name = $file->name;
         
         // Use Laravel's storage helper to get the correct public URL
         $file_path = asset('storage/uploads/' . $file_name);
     
-        return view('preview-mp3-files', compact('file_path'));
+        return view('preview-mp3-files', compact('file'));
         // Log::info('File preview reached');
         // $File = File::find($id);
         // $file_name = $File->name;

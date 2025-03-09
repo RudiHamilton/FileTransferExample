@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <audio controls>
-        <source src="{{url($file_path)}}" type="audio/mpeg"> 
+<x-layout>
+    <h1>You are now listening too {{$file->name}}</h1>
+    {{-- <h2>By {{$}}</h2> --}}
+    <audio controls seeked>
+        <source src="{{url($file->file_path)}}" type="audio/mpeg"> 
     </audio>
-</body>
-</html>
+</x-layout>
